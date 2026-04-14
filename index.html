@@ -253,7 +253,6 @@ a{text-decoration:none;color:inherit}
 .chat-date-sep{text-align:center;font-size:12px;color:#9ca3af;margin:8px 0;position:relative}
 .chat-date-sep::before,.chat-date-sep::after{content:'';position:absolute;top:50%;width:30%;height:1px;background:#e8e8e8}
 .chat-date-sep::before{left:0}.chat-date-sep::after{right:0}
-</style>
 .user-nav{display:flex;align-items:center;gap:10px}
 .user-av-btn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;cursor:pointer;border:2px solid #1d4ed8;color:#1e40af;background:#dbeafe}
 .user-dropdown{display:none;position:absolute;top:48px;right:0;width:220px;background:#fff;border-radius:12px;border:1px solid #e8e8e8;overflow:hidden;z-index:300;box-shadow:0 8px 24px rgba(0,0,0,.12)}
@@ -630,26 +629,65 @@ a{text-decoration:none;color:inherit}
       </div>
     </div>
     <div class="bid-section">
-      <div class="bid-form">
+
+      <!-- USTA: taklif berish formasi (faqat usta ko'radi) -->
+      <div class="bid-form" id="bid-form-usta">
         <h4>🔨 Taklif berish</h4>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:#92400e;display:flex;gap:8px;align-items:flex-start">
+          <span style="flex-shrink:0">🔒</span>
+          <span>Sizning narxingiz faqat mijozga ko'rinadi. Boshqa ustalar faqat taklif sonini ko'radi — narxingiz yashirin qoladi.</span>
+        </div>
         <div class="inp-group" style="margin-bottom:10px"><label>Xabar</label><textarea style="min-height:70px" placeholder="Tajribangiz, qachon boshlay olishingiz haqida yozing..."></textarea></div>
         <div class="bid-row">
-          <input class="bid-inp" type="number" placeholder="Narx (so'm)">
+          <input class="bid-inp" type="number" placeholder="Narx (so'm)" id="bid-price-inp">
           <input class="bid-inp" type="number" placeholder="Muddat (kun)">
-          <button style="padding:10px 18px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit" onclick="showToast('Taklifingiz yuborildi!')">Yuborish</button>
+          <button style="padding:10px 18px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit" onclick="submitBid()">Yuborish</button>
         </div>
       </div>
-      <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:12px">Kelgan takliflar (3)</div>
-      <div class="bid-card-item">
-        <div class="bc-head"><div class="bc-av" style="background:#dbeafe;color:#1e40af">АХ</div><div><div class="bc-name">Aziz Hasanov</div><div class="bc-meta">Santexnik · ★ 4.9 · 47 ish</div></div><div class="bc-price">150 000 so'm</div></div>
-        <div class="bc-msg">Tajribali santexnikman. 1 soatda tuzatib beraman, material ham o'zimda bor.</div>
-        <div class="bc-btns"><button class="bc-accept" onclick="showToast('Aziz Hasanov yollandi!')">✓ Qabul qilish</button><button class="bc-view" onclick="closeModal('detail-modal');openProfile(0)">Profilni ko'rish</button></div>
+
+      <!-- BOSHQA USTALAR: faqat son ko'rinadi (narxsiz) -->
+      <div id="bid-public-view" style="display:none">
+        <div style="background:#f8faff;border:1px solid #dbeafe;border-radius:10px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px">
+          <div style="text-align:center;min-width:60px">
+            <div style="font-size:32px;font-weight:800;color:#1d4ed8" id="bid-count-public">3</div>
+            <div style="font-size:12px;color:#6b7280">ta usta</div>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:3px">Bu e'longa taklif berdi</div>
+            <div style="font-size:13px;color:#6b7280">Narxlarni faqat e'lon egasi ko'radi. Siz ham taklif bering!</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="bid-avatars-public">
+          <!-- ustalar avatarlari (nomsiz) -->
+        </div>
       </div>
-      <div class="bid-card-item">
-        <div class="bc-head"><div class="bc-av" style="background:#dbeafe;color:#1e40af">БТ</div><div><div class="bc-name">Bobur Toshmatov</div><div class="bc-meta">Santexnik · ★ 4.3 · 28 ish</div></div><div class="bc-price">120 000 so'm</div></div>
-        <div class="bc-msg">Tez yetib kelaman, sifatga kafolat beraman.</div>
-        <div class="bc-btns"><button class="bc-accept" onclick="showToast('Bobur Toshmatov yollandi!')">✓ Qabul qilish</button><button class="bc-view" onclick="closeModal('detail-modal');openProfile(5)">Profilni ko'rish</button></div>
+
+      <!-- MIJOZ: to'liq takliflar narx bilan -->
+      <div id="bid-owner-view" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:600;color:#1a1a1a">Kelgan takliflar (<span id="bid-count-owner">3</span>)</div>
+          <div style="font-size:12px;color:#6b7280;background:#eff6ff;padding:4px 10px;border-radius:20px">🔒 Faqat siz ko'rasiz</div>
+        </div>
+
+        <!-- Min/Max narx summary -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+          <div style="background:#f0fdf4;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">Eng arzon</div>
+            <div style="font-size:15px;font-weight:700;color:#16a34a" id="bid-min-price">120 000</div>
+          </div>
+          <div style="background:#fff7ed;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">O'rtacha</div>
+            <div style="font-size:15px;font-weight:700;color:#ea580c" id="bid-avg-price">135 000</div>
+          </div>
+          <div style="background:#fef2f2;border-radius:8px;padding:10px;text-align:center">
+            <div style="font-size:11px;color:#6b7280;margin-bottom:2px">Eng qimmat</div>
+            <div style="font-size:15px;font-weight:700;color:#dc2626" id="bid-max-price">150 000</div>
+          </div>
+        </div>
+
+        <div id="bid-list-owner"></div>
       </div>
+
     </div>
   </div>
 </div>
@@ -1297,7 +1335,166 @@ function finishLogin() {
   showToast('Xush kelibsiz, ' + name + '!');
 }
 
-// ===== CHAT =====
+// ===== SEALED BID TIZIMI =====
+// Demo uchun e'lon bids ma'lumotlari
+var BIDS_DATA = {
+  0: [
+    {id:0,ustaId:0,name:"Aziz Hasanov",initials:"AX",bg:"#dbeafe",clr:"#1e40af",spec:"Santexnik",rating:4.9,jobs:142,price:150000,duration:1,msg:"Tajribali santexnikman. 1 soatda tuzatib beraman, material ham o'zimda bor."},
+    {id:1,ustaId:5,name:"Bobur Toshmatov",initials:"BT",bg:"#d1fae5",clr:"#065f46",spec:"Santexnik",rating:4.3,jobs:56,price:120000,duration:2,msg:"Tez yetib kelaman, sifatga kafolat beraman."},
+    {id:2,ustaId:3,name:"Mansur Rajabov",initials:"MR",bg:"#fee2e2",clr:"#991b1b",spec:"Santexnik",rating:4.6,jobs:33,price:180000,duration:1,msg:"Sifatli ish uchun biroz qimmatroq, lekin kafolat 1 yil."},
+  ],
+  1: [
+    {id:0,ustaId:3,name:"Farrux Yusupov",initials:"FY",bg:"#fee2e2",clr:"#991b1b",spec:"Gipschi",rating:4.7,jobs:87,price:2800000,duration:14,msg:"Butun ishni o'zimiz bajaramiz. Materiallar bilan."},
+    {id:1,ustaId:4,name:"Jamshid Rahimov",initials:"JR",bg:"#ede9fe",clr:"#5b21b6",spec:"Plitkachi",rating:5.0,jobs:213,price:3200000,duration:12,msg:"Professional jamoa bilan bajaramiz."},
+  ],
+  3: [
+    {id:0,ustaId:2,name:"Nodir Atamuratov",initials:"NA",bg:"#fef3c7",clr:"#92400e",spec:"Duradgor",rating:4.5,jobs:28,price:650000,duration:3,msg:"Metall eshiklarni o'rnatishda tajribam bor."},
+    {id:1,ustaId:1,name:"Mansur Saidullayev",initials:"MS",bg:"#dbeafe",clr:"#1e40af",spec:"Duradgor",rating:4.8,jobs:201,price:580000,duration:5,msg:"Yuqori sifatli material va ish kafolat bilan."},
+  ],
+  5: [
+    {id:0,ustaId:4,name:"Jamshid Rahimov",initials:"JR",bg:"#ede9fe",clr:"#5b21b6",spec:"Plitkachi",rating:5.0,jobs:213,price:550000,duration:4,msg:"10 yillik tajribam bor. Siz xursand bo'lasiz."},
+  ],
+};
+
+function openDetail(id) {
+  var j = JOBS[id];
+  if (!j) return;
+
+  document.getElementById('d-title').textContent = j.title;
+  document.getElementById('d-desc').textContent = j.desc;
+  document.getElementById('d-cat').textContent = j.cat;
+  document.getElementById('d-loc').textContent = j.loc;
+  document.getElementById('d-price').textContent = (j.priceMin && j.priceMax) ? j.priceMin.toLocaleString() + ' – ' + j.priceMax.toLocaleString() + ' so\'m' : j.priceMin ? j.priceMin.toLocaleString() + ' so\'mdan' : 'Kelishiladi';
+  document.getElementById('d-deadline').textContent = j.deadline;
+  var sc = j.status === 'open' ? 'status-open' : j.status === 'progress' ? 'status-prog' : 'status-done';
+  var st = j.status === 'open' ? 'Ochiq' : j.status === 'progress' ? 'Jarayonda' : 'Tugallandi';
+  document.getElementById('d-status').className = sc;
+  document.getElementById('d-status').textContent = st;
+
+  var bids = BIDS_DATA[id] || [];
+  document.getElementById('d-meta').textContent = bids.length + ' ta taklif · ' + j.time;
+
+  // Kim ekanligini aniqlash
+  var isOwner = currentUser && currentUser.jobOwner === id;
+  var isUsta = currentUser && currentUser.role === 'Usta';
+  var isGuest = !currentUser;
+
+  renderBidSection(id, bids, isOwner, isUsta);
+  document.getElementById('detail-modal').classList.add('show');
+  document.getElementById('notif-dropdown').classList.remove('show');
+}
+
+function renderBidSection(jobId, bids, isOwner, isUsta) {
+  var formEl = document.getElementById('bid-form-usta');
+  var publicEl = document.getElementById('bid-public-view');
+  var ownerEl = document.getElementById('bid-owner-view');
+
+  // Hammasini yashir
+  formEl.style.display = 'none';
+  publicEl.style.display = 'none';
+  ownerEl.style.display = 'none';
+
+  if (isOwner) {
+    // MIJOZ (e'lon egasi): narxlarni ko'radi
+    ownerEl.style.display = 'block';
+    renderOwnerBids(bids);
+  } else if (isUsta) {
+    // USTA: taklif berish formasi + faqat son
+    formEl.style.display = 'block';
+    publicEl.style.display = 'block';
+    renderPublicBids(bids);
+  } else {
+    // MEHMON: faqat son ko'radi
+    publicEl.style.display = 'block';
+    renderPublicBids(bids);
+  }
+}
+
+function renderPublicBids(bids) {
+  document.getElementById('bid-count-public').textContent = bids.length;
+
+  // Faqat avatarlar (ism va narxsiz)
+  var avEl = document.getElementById('bid-avatars-public');
+  if (bids.length === 0) {
+    avEl.innerHTML = '<div style="font-size:13px;color:#9ca3af">Hali taklif yo\'q. Birinchi bo\'ling!</div>';
+    return;
+  }
+  avEl.innerHTML = bids.map(function(b) {
+    return '<div title="Usta" style="width:36px;height:36px;border-radius:50%;background:' + b.bg + ';color:' + b.clr + ';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;border:2px solid #fff">' + b.initials + '</div>';
+  }).join('') + (bids.length > 0 ? '<div style="display:flex;align-items:center;font-size:12px;color:#6b7280;margin-left:6px">' + bids.length + ' ta usta taklif berdi</div>' : '');
+}
+
+function renderOwnerBids(bids) {
+  document.getElementById('bid-count-owner').textContent = bids.length;
+
+  if (bids.length === 0) {
+    document.getElementById('bid-list-owner').innerHTML = '<div style="text-align:center;padding:24px;color:#9ca3af;font-size:14px">Hali taklif kelmadi. Kuting...</div>';
+    document.getElementById('bid-min-price').textContent = '—';
+    document.getElementById('bid-avg-price').textContent = '—';
+    document.getElementById('bid-max-price').textContent = '—';
+    return;
+  }
+
+  // Narx statistikasi
+  var prices = bids.map(function(b) { return b.price; });
+  var minP = Math.min.apply(null, prices);
+  var maxP = Math.max.apply(null, prices);
+  var avgP = Math.round(prices.reduce(function(a,b){return a+b;},0) / prices.length);
+
+  document.getElementById('bid-min-price').textContent = minP.toLocaleString() + ' so\'m';
+  document.getElementById('bid-avg-price').textContent = avgP.toLocaleString() + ' so\'m';
+  document.getElementById('bid-max-price').textContent = maxP.toLocaleString() + ' so\'m';
+
+  // Narx bo'yicha saralash (arzondan qimmatga)
+  var sorted = bids.slice().sort(function(a,b){ return a.price - b.price; });
+
+  document.getElementById('bid-list-owner').innerHTML = sorted.map(function(b, idx) {
+    var isCheapest = b.price === minP;
+    return '<div class="bid-card-item" style="' + (isCheapest ? 'border-color:#16a34a;border-width:2px' : '') + '">' +
+      (isCheapest ? '<div style="font-size:11px;font-weight:600;color:#16a34a;margin-bottom:8px">✅ Eng arzon taklif</div>' : '') +
+      '<div class="bc-head">' +
+        '<div class="bc-av" style="background:' + b.bg + ';color:' + b.clr + '">' + b.initials + '</div>' +
+        '<div>' +
+          '<div class="bc-name">' + b.name + '</div>' +
+          '<div class="bc-meta">' + b.spec + ' · ★ ' + b.rating + ' · ' + b.jobs + ' ish</div>' +
+        '</div>' +
+        '<div style="text-align:right">' +
+          '<div class="bc-price">' + b.price.toLocaleString() + ' so\'m</div>' +
+          '<div style="font-size:11px;color:#9ca3af">' + (b.duration || '?') + ' kun</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="bc-msg">' + b.msg + '</div>' +
+      '<div class="bc-btns">' +
+        '<button class="bc-accept" onclick="acceptBid(' + b.ustaId + ',\'' + b.name + '\')">✓ Qabul qilish</button>' +
+        '<button class="bc-view" onclick="closeModal(\'detail-modal\');openProfile(' + b.ustaId + ')">Profilni ko\'rish</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function acceptBid(ustaId, name) {
+  showToast('✅ ' + name + ' yollandi! Ish boshlandi.');
+  closeModal('detail-modal');
+}
+
+function submitBid() {
+  var price = document.getElementById('bid-price-inp').value;
+  if (!price || parseInt(price) < 1000) {
+    showToast('❌ Narxni to\'g\'ri kiriting');
+    return;
+  }
+  showToast('✅ Taklifingiz yuborildi! Mijoz ko\'radi, siz emas.');
+  document.getElementById('bid-price-inp').value = '';
+}
+
+// Demo: "Mijoz sifatida ko'rish" tugmasi
+function viewAsOwner(jobId) {
+  if (!currentUser) currentUser = {name:'Demo Mijoz', role:'Mijoz', initials:'DM', jobOwner: jobId};
+  else currentUser.jobOwner = jobId;
+  openDetail(jobId);
+}
+
+
 var chatHistory = {};
 var chatCurrentUsta = null;
 
