@@ -9,16 +9,16 @@
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f5f5;color:#1a1a1a}
 a{text-decoration:none;color:inherit}
 .topnav{background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:100}
-.nav-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:60px}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px;height:60px}
 .logo{font-size:22px;font-weight:700;color:#1a1a1a;margin-right:8px}
 .logo span{color:#1d4ed8;font-size:13px;vertical-align:super;font-weight:600}
-.nav-links{display:flex;gap:4px;flex:1}
-.nav-link{padding:7px 14px;border-radius:8px;font-size:14px;color:#555;cursor:pointer;transition:all .15s;border:none;background:none;font-family:inherit}
+.nav-links{display:flex;gap:2px;flex:1;min-width:0}
+.nav-link{padding:7px 10px;border-radius:8px;font-size:13px;color:#555;cursor:pointer;transition:all .15s;border:none;background:none;font-family:inherit;white-space:nowrap}
 .nav-link:hover,.nav-link.active{background:#eff6ff;color:#1d4ed8;font-weight:500}
-.nav-right{display:flex;gap:8px;align-items:center}
-.btn-login{padding:8px 18px;border:1.5px solid #d1d5db;border-radius:8px;font-size:14px;background:#fff;cursor:pointer;font-family:inherit;transition:all .15s}
+.nav-right{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.btn-login{padding:7px 14px;border:1.5px solid #d1d5db;border-radius:8px;font-size:13px;background:#fff;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
 .btn-login:hover{border-color:#1d4ed8;color:#1d4ed8}
-.btn-post{padding:8px 18px;border:none;border-radius:8px;font-size:14px;background:#1d4ed8;color:#fff;cursor:pointer;font-family:inherit;font-weight:500;display:flex;align-items:center;gap:6px;transition:all .15s}
+.btn-post{padding:7px 14px;border:none;border-radius:8px;font-size:13px;background:#1d4ed8;color:#fff;cursor:pointer;font-family:inherit;font-weight:500;display:flex;align-items:center;gap:5px;transition:all .15s;white-space:nowrap}
 .btn-post:hover{background:#1e40af}
 .notif-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid #e8e8e8;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;font-size:18px}
 .notif-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:#ef4444;border-radius:50%;border:2px solid #fff}
