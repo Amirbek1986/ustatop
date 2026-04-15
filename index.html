@@ -269,16 +269,17 @@ a{text-decoration:none;color:inherit}
 /* ========== MOBIL VERSIYA ========== */
 @media (max-width: 1024px) {
 
-  /* NAV */
-  .nav-inner { padding: 0 14px; height: 52px; gap: 8px; }
-  .logo { font-size: 18px; }
-  .nav-links { display: none; }
-  .btn-login { display: none; }
-  .btn-post { display: none; }
-  .notif-btn { width: 32px; height: 32px; font-size: 16px; }
+  /* NAV - mobilda faqat logo + bildirishnoma */
+  .nav-inner { padding: 0 14px; height: 52px; gap: 0; }
+  .logo { font-size: 18px; flex: 1; }
+  .nav-links { display: none !important; }
+  .btn-login { display: none !important; }
+  .btn-post { display: none !important; }
+  .notif-btn { width: 36px; height: 36px; font-size: 18px; }
   #user-wrap { display: none !important; }
+  .nav-right { gap: 4px; }
 
-  /* BOTTOM NAV - mobil uchun */
+  /* BOTTOM NAV */
   .bottom-nav { display: flex; }
 
   /* HERO */
