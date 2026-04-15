@@ -452,6 +452,23 @@ a{text-decoration:none;color:inherit}
 @media (max-width: 1024px) {
   body { padding-bottom: 64px; }
 }
+/* HERO TUGMALAR */
+.hero-btns{display:flex;gap:12px;justify-content:center;margin-bottom:28px;flex-wrap:wrap}
+.hbtn-card{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:16px;padding:16px 20px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:120px;font-family:inherit;color:#fff}
+.hbtn-card:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5);transform:translateY(-2px)}
+.hbtn-main{background:rgba(255,255,255,.95);border-color:#fff;color:#1d4ed8;transform:scale(1.06)}
+.hbtn-main:hover{background:#fff;transform:scale(1.08) translateY(-2px)}
+.hbtn-icon{font-size:28px;line-height:1}
+.hbtn-label{font-size:14px;font-weight:700}
+.hbtn-desc{font-size:11px;opacity:.75;font-weight:400}
+.hbtn-main .hbtn-desc{color:#1d4ed8;opacity:.7}
+@media(max-width:1024px){
+  .hero-btns{gap:8px;margin-bottom:20px}
+  .hbtn-card{min-width:calc(50% - 12px);flex:1;padding:14px 10px}
+  .hbtn-icon{font-size:22px}
+  .hbtn-label{font-size:13px}
+  .hbtn-main{transform:none}
+}
 </style>
 <body>
 
@@ -511,7 +528,31 @@ a{text-decoration:none;color:inherit}
 <div class="hero" id="hero-section">
   <div class="hero-badge">🔧 Buxoro viloyati №1 usta topish platformasi</div>
   <h1>Usta topish.<br><span>Ishonchli. Tez. Sifatli.</span></h1>
-  <p>Iш e'lon bering — ustalar narх taklif qiladi. Siz eng yaxshisini tanIang.</p>
+
+  <!-- 3 ta asosiy tugma -->
+  <div class="hero-btns">
+    <button class="hbtn-card" onclick="showView('jobs');scrollToMain()">
+      <div class="hbtn-icon">📋</div>
+      <div class="hbtn-label">E'lonlar</div>
+      <div class="hbtn-desc">Ish e'lon bering</div>
+    </button>
+    <button class="hbtn-card hbtn-main" onclick="openNewJob()">
+      <div class="hbtn-icon">➕</div>
+      <div class="hbtn-label">E'lon berish</div>
+      <div class="hbtn-desc">Usta topish uchun</div>
+    </button>
+    <button class="hbtn-card" onclick="showView('ustas');scrollToMain()">
+      <div class="hbtn-icon">👷</div>
+      <div class="hbtn-label">Ustalar</div>
+      <div class="hbtn-desc">Usta qidiring</div>
+    </button>
+    <button class="hbtn-card" onclick="showView('my');scrollToMain()">
+      <div class="hbtn-icon">📁</div>
+      <div class="hbtn-label">Mening ishim</div>
+      <div class="hbtn-desc">Ishlarim tarixi</div>
+    </button>
+  </div>
+
   <div class="search-box">
     <div class="search-top">
       <input class="search-text" type="text" id="main-search" placeholder="Santexnik, elektrik, duradgor..." oninput="liveSearch()">
@@ -1919,6 +1960,11 @@ if (chatInp) {
   });
 }
 
+
+function scrollToMain() {
+  var el = document.querySelector('.main');
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
 
 var toastTimer;
 function showToast(msg) {
