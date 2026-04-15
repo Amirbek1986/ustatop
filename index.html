@@ -265,8 +265,193 @@ a{text-decoration:none;color:inherit}
 .ud-item svg{flex-shrink:0}
 .ud-sep{height:1px;background:#f3f4f6}
 .ud-logout{color:#ef4444}
+
+/* ========== MOBIL VERSIYA ========== */
+@media (max-width: 768px) {
+
+  /* NAV */
+  .nav-inner { padding: 0 14px; height: 52px; gap: 8px; }
+  .logo { font-size: 18px; }
+  .nav-links { display: none; }
+  .btn-login { padding: 7px 14px; font-size: 13px; }
+  .btn-post { padding: 7px 14px; font-size: 13px; }
+  .btn-post span.post-text { display: none; }
+  .notif-btn { width: 32px; height: 32px; font-size: 16px; }
+
+  /* BOTTOM NAV - mobil uchun */
+  .bottom-nav { display: flex; }
+
+  /* HERO */
+  .hero { padding: 28px 14px 24px; }
+  .hero h1 { font-size: 26px; }
+  .hero p { font-size: 14px; margin-bottom: 20px; }
+  .hero-badge { font-size: 12px; padding: 4px 12px; margin-bottom: 14px; }
+  .search-box { padding: 14px; border-radius: 12px; }
+  .search-top input { font-size: 14px; padding: 10px 14px; }
+  .search-row1 { grid-template-columns: 1fr; gap: 8px; }
+  .search-row2 { gap: 6px; }
+  .amenity-chip { font-size: 12px; padding: 5px 10px; }
+  .btn-search { padding: 12px; font-size: 15px; }
+
+  /* STATS BAR */
+  .stats-bar { padding: 10px 14px; overflow-x: auto; }
+  .stats-inner { gap: 20px; min-width: max-content; }
+  .stat-item { font-size: 13px; }
+  .stat-item strong { font-size: 17px; }
+
+  /* FILTER TABS */
+  .filter-bar { padding: 0 14px; }
+
+  /* MAIN LAYOUT */
+  .main { grid-template-columns: 1fr; padding: 0 14px; margin: 14px auto; gap: 14px; }
+  .sidebar { display: none; }
+
+  /* JOB CARDS */
+  .jc-title { font-size: 14px; }
+  .jc-desc { font-size: 12px; }
+  .jc-foot { gap: 6px; }
+  .jc-price { font-size: 13px; }
+  .jc-bids { font-size: 11px; }
+  .jc-tag { font-size: 11px; padding: 3px 7px; }
+
+  /* USTA GRID */
+  .usta-grid { grid-template-columns: 1fr; }
+
+  /* LISTINGS HEADER */
+  .listings-header { margin-bottom: 10px; }
+  .listings-count { font-size: 14px; }
+
+  /* MODAL */
+  .modal-overlay { padding: 0; align-items: flex-end; }
+  .modal { border-radius: 20px 20px 0 0; max-height: 92vh; overflow-y: auto; max-width: 100% !important; width: 100%; }
+  .modal-header { padding: 16px 18px 12px; position: sticky; top: 0; z-index: 1; }
+  .modal-body { padding: 16px 18px; }
+  .modal-footer { padding: 14px 18px; }
+
+  /* MODAL DRAG HANDLE */
+  .modal::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: #d1d5db;
+    border-radius: 2px;
+    margin: 10px auto -6px;
+  }
+
+  /* DETAIL MODAL */
+  .detail-hero { padding: 14px 16px; }
+  .detail-title { font-size: 16px; }
+  .detail-desc { font-size: 13px; }
+  .detail-meta { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .detail-meta-box { padding: 10px; }
+  .dml { font-size: 10px; }
+  .dmv { font-size: 13px; }
+  .bid-section { padding: 14px 16px; }
+  .bid-row { flex-direction: column; gap: 8px; }
+  .bid-row button { width: 100%; }
+  .bid-inp { width: 100%; }
+
+  /* PROFILE MODAL */
+  .profile-banner { padding: 16px; }
+  .profile-top-row { flex-wrap: wrap; gap: 12px; }
+  .pav { width: 56px; height: 56px; font-size: 20px; }
+  .p-name { font-size: 17px; }
+  .p-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .ps-val { font-size: 18px; }
+
+  /* CONTACT BUTTONS */
+  #p-phone-row { padding: 10px 12px; }
+
+  /* PROFILE TABS */
+  .ptabs { padding: 0 16px; }
+  .ptab { padding: 10px 12px; font-size: 13px; }
+  .ptab-content { padding: 14px 16px; }
+
+  /* PORTFOLIO */
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  /* CHAT MODAL */
+  #chat-modal .modal { height: 100vh; max-height: 100vh; border-radius: 0; }
+  #chat-messages { padding: 12px; }
+  #chat-modal .modal-header { padding: 14px 16px 12px; }
+
+  /* LOGIN MODAL */
+  .role-grid { gap: 8px; }
+  .otp-box { width: 40px; height: 48px; font-size: 20px; }
+
+  /* NOTIF DROPDOWN */
+  .notif-dropdown { width: 100vw; right: -14px; border-radius: 0 0 12px 12px; }
+
+  /* USER DROPDOWN */
+  .user-dropdown { width: 200px; }
+
+  /* FEATURED CARD */
+  .featured-card { flex-direction: column; gap: 8px; align-items: flex-start; }
+
+  /* REVIEWS */
+  .reviews-summary { flex-direction: column; gap: 12px; }
+  .rs-big { font-size: 42px; }
+
+  /* STATS CARDS */
+  .p-stats { grid-template-columns: 1fr 1fr; }
+}
+
+/* Kichik telefonlar (375px) */
+@media (max-width: 390px) {
+  .hero h1 { font-size: 22px; }
+  .otp-box { width: 36px; height: 44px; font-size: 18px; }
+  .p-stats { grid-template-columns: 1fr 1fr; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-right { gap: 6px; }
+}
+
+/* ========== BOTTOM NAVIGATION (mobil) ========== */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  z-index: 150;
+  padding: 8px 0 12px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+.bn-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  padding: 4px 0;
+  color: #9ca3af;
+  font-size: 11px;
+  transition: color .15s;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+.bn-item.active { color: #1d4ed8; }
+.bn-item svg { width: 22px; height: 22px; }
+.bn-dot {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/* Mobilda pastdagi navigatsiya uchun joy qoldirish */
+@media (max-width: 768px) {
+  body { padding-bottom: 64px; }
+}
 </style>
-</head>
 <body>
 
 <!-- NAV -->
@@ -872,6 +1057,33 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- MOBIL PASTKI NAVIGATSIYA -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="bn-item active" id="bn-jobs" onclick="bnSwitch('jobs')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+    E'lonlar
+  </button>
+  <button class="bn-item" id="bn-ustas" onclick="bnSwitch('ustas')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    Ustalar
+  </button>
+  <button class="bn-item" id="bn-post" onclick="openNewJob()">
+    <div style="width:44px;height:44px;background:#1d4ed8;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:-18px;border:3px solid #fff;box-shadow:0 2px 8px rgba(29,78,216,.4)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </div>
+    <span style="margin-top:2px">E'lon</span>
+  </button>
+  <button class="bn-item" id="bn-my" onclick="bnSwitch('my')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Mening
+  </button>
+  <button class="bn-item" id="bn-profile" onclick="bnProfile()" style="position:relative">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div class="bn-dot" id="bn-notif-dot"></div>
+    Profil
+  </button>
+</nav>
 
 <script>
 // ===== DATA =====
@@ -1636,7 +1848,62 @@ document.addEventListener('click', function(e) {
   if (ud && uw && !uw.contains(e.target)) ud.classList.remove('show');
 });
 
-// ===== TOAST =====
+// ===== MOBIL BOTTOM NAV =====
+function bnSwitch(view) {
+  showView(view);
+  ['jobs','ustas','my','profile'].forEach(function(v) {
+    var el = document.getElementById('bn-'+v);
+    if (el) el.classList.remove('active');
+  });
+  var active = document.getElementById('bn-'+view);
+  if (active) active.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function bnProfile() {
+  if (currentUser) {
+    document.getElementById('user-dropdown').classList.toggle('show');
+  } else {
+    openLogin();
+  }
+  ['jobs','ustas','my'].forEach(function(v) {
+    var el = document.getElementById('bn-'+v);
+    if (el) el.classList.remove('active');
+  });
+  var el = document.getElementById('bn-profile');
+  if (el) el.classList.add('active');
+}
+
+// showView ni override qilamiz - bottom nav ham yangilansin
+var _origShowView = showView;
+showView = function(v) {
+  _origShowView(v);
+  ['jobs','ustas','my'].forEach(function(x) {
+    var el = document.getElementById('bn-'+x);
+    if (el) el.classList.remove('active');
+  });
+  var el = document.getElementById('bn-'+v);
+  if (el) el.classList.add('active');
+};
+
+// Mobil: modal ochilganda scroll bloklash
+document.querySelectorAll('.modal-overlay').forEach(function(m) {
+  var obs = new MutationObserver(function() {
+    document.body.style.overflow = m.classList.contains('show') ? 'hidden' : '';
+  });
+  obs.observe(m, { attributes: true, attributeFilter: ['class'] });
+});
+
+// Mobil: chat textarea auto-resize
+var chatInp = document.getElementById('chat-input');
+if (chatInp) {
+  chatInp.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+  });
+}
+
+
 var toastTimer;
 function showToast(msg) {
   var t = document.getElementById('toast');
