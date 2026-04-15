@@ -273,10 +273,10 @@ a{text-decoration:none;color:inherit}
   .nav-inner { padding: 0 14px; height: 52px; gap: 8px; }
   .logo { font-size: 18px; }
   .nav-links { display: none; }
-  .btn-login { padding: 7px 14px; font-size: 13px; }
-  .btn-post { padding: 7px 14px; font-size: 13px; }
-  .btn-post span.post-text { display: none; }
+  .btn-login { display: none; }
+  .btn-post { display: none; }
   .notif-btn { width: 32px; height: 32px; font-size: 16px; }
+  #user-wrap { display: none !important; }
 
   /* BOTTOM NAV - mobil uchun */
   .bottom-nav { display: flex; }
@@ -1539,11 +1539,16 @@ function finishLogin() {
   var role = roleEl ? roleEl.textContent : 'Mijoz';
   currentUser = {name:name, role:role, initials:name.slice(0,2).toUpperCase()};
   closeModal('login-modal');
-  document.getElementById('btn-login').style.display = 'none';
-  document.getElementById('user-wrap').style.display = 'block';
+  // Desktop nav
+  var btnLogin = document.getElementById('btn-login');
+  var userWrap = document.getElementById('user-wrap');
+  if (btnLogin) btnLogin.style.display = 'none';
+  if (userWrap) { userWrap.style.display = 'block'; }
   document.getElementById('user-av-btn').textContent = currentUser.initials;
   document.getElementById('ud-name').textContent = currentUser.name;
   document.getElementById('ud-role').textContent = currentUser.role;
+  // Mobil bottom nav
+  updateBnProfile();
   showToast('Xush kelibsiz, ' + name + '!');
 }
 
@@ -1862,16 +1867,26 @@ function bnSwitch(view) {
 
 function bnProfile() {
   if (currentUser) {
-    document.getElementById('user-dropdown').classList.toggle('show');
+    // Profil sahifasini ko'rsatish
+    showView('my');
+    ['jobs','ustas','my'].forEach(function(v) {
+      var el = document.getElementById('bn-'+v);
+      if (el) el.classList.remove('active');
+    });
+    var el = document.getElementById('bn-profile');
+    if (el) el.classList.add('active');
   } else {
     openLogin();
   }
-  ['jobs','ustas','my'].forEach(function(v) {
-    var el = document.getElementById('bn-'+v);
-    if (el) el.classList.remove('active');
-  });
+}
+
+// Kirish/chiqishda bottom nav profil ikonasini yangilash
+function updateBnProfile() {
   var el = document.getElementById('bn-profile');
-  if (el) el.classList.add('active');
+  if (!el) return;
+  if (currentUser) {
+    el.innerHTML = '<div style="width:28px;height:28px;border-radius:50%;background:#dbeafe;color:#1e40af;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">' + currentUser.initials + '</div><span style="margin-top:2px">' + currentUser.name.split(' ')[0] + '</span>';
+  }
 }
 
 // showView ni override qilamiz - bottom nav ham yangilansin
